@@ -20,102 +20,111 @@ class _FilterState extends State<Filter> {
         width: size.width,
         alignment: Alignment.bottomCenter,
         color: Colors.grey[300],
-        child: Container(
-          height: size.height,
-          width: size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              // Container(
-              //   height: size.height - 70,
-              //   child: Text('dsdfasdfasdfasdfasdf'),
-              // ),
-              filterPopUp(size),
-              Container(
-                // margin: EdgeInsets.only(top: size.height < 600 ? 0 : 20),
-                padding: EdgeInsets.all(10),
-                height: 70,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[300],
-                      offset: const Offset(
-                        0.0,
-                        -5.0,
-                      ),
-                      blurRadius: 6.0,
-                      // spreadRadius: 2.0,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(
-                        left: 10,
-                        right: 10,
-                        top: 5,
-                        bottom: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.grey[800],
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.filter_alt,
-                            size: 30,
-                            color: Colors.white,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              if (slidUp) {
-                                setState(() {
-                                  slidUp = false;
-                                });
-                              } else {
-                                setState(() {
-                                  slidUp = true;
-                                });
-                              }
-                              // setState(() {
-                              //   slidUp = false;
-                              // });
-                            },
-                            child: Text(
-                              'Filter',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Icon(
-                      Icons.search_rounded,
-                      size: 35,
-                      color: Colors.grey[700],
-                    ),
-                    Icon(
-                      Icons.menu_open_outlined,
-                      size: 35,
-                      color: Colors.grey[700],
-                    ),
-                  ],
-                ),
+        child: Stack(
+          children: [
+            // Container is used for showing UI contant
+            Positioned(
+              top: size.height - 100,
+              child: Container(
+                // height: size.height - 70,
+                child: Text('dsdfasdfasdfasdfasdf'),
               ),
-            ],
-          ),
+            ),
+            // this is bottom nav and filter popUp
+            Container(
+              height: size.height,
+              width: size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  filterPopUp(size),
+                  Container(
+                    // margin: EdgeInsets.only(top: size.height < 600 ? 0 : 20),
+                    padding: EdgeInsets.all(10),
+                    height: 70,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[300],
+                          offset: const Offset(
+                            0.0,
+                            -5.0,
+                          ),
+                          blurRadius: 6.0,
+                          // spreadRadius: 2.0,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            right: 10,
+                            top: 5,
+                            bottom: 5,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey[800],
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.filter_alt,
+                                size: 30,
+                                color: Colors.white,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  if (slidUp) {
+                                    setState(() {
+                                      slidUp = false;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      slidUp = true;
+                                    });
+                                  }
+                                  // setState(() {
+                                  //   slidUp = false;
+                                  // });
+                                },
+                                child: Text(
+                                  'Filter',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Icon(
+                          Icons.search_rounded,
+                          size: 35,
+                          color: Colors.grey[700],
+                        ),
+                        Icon(
+                          Icons.menu_open_outlined,
+                          size: 35,
+                          color: Colors.grey[700],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -154,45 +163,67 @@ class _FilterState extends State<Filter> {
                       //For Small Phones
                       child: Column(
                         children: [
-                          Container(
-                            margin: EdgeInsets.only(
-                              bottom: size.height < 600 ? 20 : 30,
-                            ),
-                            width: size.width,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(bottom: 20),
-                                  height: 5,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(2.5),
-                                    color: Colors.grey[500],
+                          GestureDetector(
+                            onVerticalDragEnd: (gestureData) {
+                              Velocity dragVelocity = gestureData.velocity;
+
+                              if (dragVelocity.pixelsPerSecond.dy.abs() > 0) {
+                                setState(() {
+                                  if (slidUp) {
+                                    setState(() {
+                                      slidUp = false;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      slidUp = true;
+                                    });
+                                  }
+                                });
+                              } else {
+                                print('no Drag down, wait 1sec to do again');
+                              }
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                bottom: size.height < 600 ? 20 : 30,
+                              ),
+                              width: size.width,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: 5,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(2.5),
+                                      color: Colors.grey[500],
+                                    ),
                                   ),
-                                ),
-                                // Filter text Box
-                                Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Filter',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w900,
-                                          color: Colors.black,
-                                          fontSize: 32,
+                                  // Filter text Box
+                                  Container(
+                                    padding: EdgeInsets.only(top: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Filter',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w900,
+                                            color: Colors.black,
+                                            fontSize: 32,
+                                          ),
                                         ),
-                                      ),
-                                      Icon(
-                                        Icons.arrow_drop_down,
-                                        color: Colors.red,
-                                        size: 40,
-                                      ),
-                                    ],
+                                        Icon(
+                                          Icons.arrow_drop_down,
+                                          color: Colors.red,
+                                          size: 40,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           Container(

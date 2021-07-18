@@ -1,22 +1,22 @@
-import 'package:device_preview/device_preview.dart';
+// import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app_design_demo/pages/filterPage.dart';
 import 'package:food_app_design_demo/pages/restaurant.dart';
 
-void main() => runApp(
-      DevicePreview(
-        enabled: true,
-        builder: (context) => MyApp(), // Wrap your app
-      ),
-    ); //For Testing
-// void main() => runApp(MyApp());
+// void main() => runApp(
+//       DevicePreview(
+//         enabled: true,
+//         builder: (context) => MyApp(), // Wrap your app
+//       ),
+//     ); //For Testing
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: DevicePreview.locale(context), // Add the locale here
-      builder: DevicePreview.appBuilder, // Add the builder here
+      // locale: DevicePreview.locale(context), // Add the locale here
+      // builder: DevicePreview.appBuilder, // Add the builder here
       theme: ThemeData(fontFamily: 'PTSans'),
       home: MyHomePage(),
     );
@@ -62,38 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       context,
                       MaterialPageRoute(builder: (context) => Filter()),
                     );
-                  },
-                ),
-                Container(
-                  height: 100,
-                  width: size.width,
-                  child: Stack(
-                    children: [
-                      AnimatedPositioned(
-                        child: Container(
-                          height: up,
-                          color: Colors.red,
-                          child: Text('d'),
-                        ),
-                        curve: Curves.bounceIn,
-                        top: up == 50 ? 50 : 80,
-                        duration: const Duration(seconds: 1),
-                      ),
-                    ],
-                  ),
-                ),
-                bigButton(
-                  'FilterPage',
-                  () {
-                    if (up != 80) {
-                      setState(() {
-                        up = 80;
-                      });
-                    } else {
-                      setState(() {
-                        up = 50;
-                      });
-                    }
                   },
                 ),
               ],

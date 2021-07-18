@@ -660,7 +660,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   ),
                 ),
                 Text(
-                  '\$${price}',
+                  '\$$price',
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 18,
