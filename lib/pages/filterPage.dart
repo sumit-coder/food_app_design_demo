@@ -10,7 +10,7 @@ class Filter extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         color: Colors.grey,
         child: Container(
-          height: size.height * 0.6,
+          height: size.height < 600 ? 550 : 600,
           width: size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -24,46 +24,137 @@ class Filter extends StatelessWidget {
             children: [
               // Filter Tab
               Container(
+                constraints: BoxConstraints(maxHeight: 530),
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: Column(
-                  children: [
-                    //  iam out of time now 1pm and i am going to sleep
-                    Text(' iam out of time now 1pm and i am going to sleep'),
-                    SizedBox(height: 30),
-                    Container(
-                      child: Row(
-                        children: [
-                          filterDropDownButton('Price', '\$Min', 105),
-                          SizedBox(width: 5),
-                          filterDropDownButton('', '\$Max', 105),
-                          SizedBox(width: 15),
-                          filterDropDownButton('Rating', 'Any', 90),
-                        ],
+                child: SingleChildScrollView(
+                  //For Small Phones
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 20),
+                        width: size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(bottom: 15),
+                              height: 5,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2.5),
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                            // Filter text Box
+                            Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Filter',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black,
+                                      fontSize: 32,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.red,
+                                    size: 40,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 15),
-                    Container(
-                      child: Row(
-                        children: [
-                          filterDropDownButton('Kitchen', 'Asian', 140),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          filterDropDownButton('Hours', 'Any', 100),
-                        ],
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Distance',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey[800],
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              '5.0km - 300km',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey[800],
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    // the big apply button
-                    bigButton('Apply'),
-                  ],
+                      SizedBox(height: 20),
+                      // Distance Filter
+                      Container(
+                        height: size.height < 600 ? 70 : 80,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.grey[300],
+                        ),
+                        child: Center(
+                          child: Text('Distance range box'),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        child: Row(
+                          children: [
+                            filterDropDownButton(
+                              'Price',
+                              '\$Min',
+                              size.height < 600 ? 95 : 105,
+                              size,
+                            ),
+                            SizedBox(width: 5),
+                            filterDropDownButton(
+                              '',
+                              '\$Max',
+                              size.height < 600 ? 95 : 105,
+                              size,
+                            ),
+                            SizedBox(width: 10),
+                            filterDropDownButton(
+                              'Rating',
+                              'Any',
+                              size.height < 600 ? 85 : 90,
+                              size,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        child: Row(
+                          children: [
+                            filterDropDownButton('Kitchen', 'Asian', 140, size),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            filterDropDownButton('Hours', 'Any', 100, size),
+                          ],
+                        ),
+                      ),
+                      // the big apply button
+                      bigButton('Apply'),
+                    ],
+                  ),
                 ),
               ),
               // Bttom Navigation Bar
               Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: EdgeInsets.only(top: size.height < 600 ? 0 : 20),
                 padding: EdgeInsets.all(10),
                 height: 70,
                 decoration: BoxDecoration(
@@ -136,7 +227,8 @@ class Filter extends StatelessWidget {
     );
   }
 
-  Container filterDropDownButton(String headTitle, String title, double width) {
+  Container filterDropDownButton(
+      String headTitle, String title, double width, Size size) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +244,7 @@ class Filter extends StatelessWidget {
           SizedBox(height: 5),
           Container(
             padding: EdgeInsets.all(10),
-            height: 50,
+            height: size.height < 600 ? 45 : 50,
             width: width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
@@ -166,7 +258,7 @@ class Filter extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize: size.width < 350 ? 18 : 20,
                   ),
                 ),
                 SizedBox(width: 5),
