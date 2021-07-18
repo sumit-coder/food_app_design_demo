@@ -29,6 +29,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  double up = 50;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -60,6 +62,38 @@ class _MyHomePageState extends State<MyHomePage> {
                       context,
                       MaterialPageRoute(builder: (context) => Filter()),
                     );
+                  },
+                ),
+                Container(
+                  height: 100,
+                  width: size.width,
+                  child: Stack(
+                    children: [
+                      AnimatedPositioned(
+                        child: Container(
+                          height: up,
+                          color: Colors.red,
+                          child: Text('d'),
+                        ),
+                        curve: Curves.bounceIn,
+                        top: up == 50 ? 50 : 80,
+                        duration: const Duration(seconds: 1),
+                      ),
+                    ],
+                  ),
+                ),
+                bigButton(
+                  'FilterPage',
+                  () {
+                    if (up != 80) {
+                      setState(() {
+                        up = 80;
+                      });
+                    } else {
+                      setState(() {
+                        up = 50;
+                      });
+                    }
                   },
                 ),
               ],
