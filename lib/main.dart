@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:food_app_design_demo/pages/filterPage.dart';
 import 'package:food_app_design_demo/pages/restaurant.dart';
 
+import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
+
 void main() => runApp(
       DevicePreview(
         enabled: true,
@@ -30,7 +33,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   double up = 50;
-  RangeValues _currentRangeValues = RangeValues(1.0, 100.0);
+  RangeValues _currentRangeValues = RangeValues(1, 18);
+  SfRangeValues currentRangeValues = SfRangeValues(2.0, 3.0);
 
   @override
   Widget build(BuildContext context) {
@@ -98,28 +102,89 @@ class _MyHomePageState extends State<MyHomePage> {
                         bottom: 0,
                         child: Container(
                           width: 250,
-                          child: RangeSlider(
-                            activeColor: Colors.red[400],
-                            inactiveColor: Colors.red,
-                            values: _currentRangeValues,
-                            min: 0,
-                            max: 100,
-                            divisions: 20,
-                            // labels: RangeLabels(
-                            //   _currentRangeValues.start.round().toString(),
-                            //   _currentRangeValues.end.round().toString(),
-                            // ),
-                            onChanged: (RangeValues values) {
-                              setState(() {
-                                _currentRangeValues = values;
-                              });
-                            },
+                          // child: // RangeSlider(
+                          //   activeColor: Colors.red[400],
+                          //   inactiveColor: Colors.red,
+                          //   values: _currentRangeValues,
+                          //   min: 0,
+                          //   max: 100,
+                          //   divisions: 20,
+                          //   // labels: RangeLabels(
+                          //   //   _currentRangeValues.start.round().toString(),
+                          //   //   _currentRangeValues.end.round().toString(),
+                          //   // ),
+                          //   onChanged: (RangeValues values) {
+                          //     setState(() {
+                          //       _currentRangeValues = values;
+                          //     });
+                          //   },
+                          // ),
+                          child: SfRangeSliderTheme(
+                            data: SfRangeSliderThemeData(
+                              activeTrackHeight: 5,
+                              thumbStrokeWidth: 3,
+                              thumbStrokeColor: Colors.red,
+                            ),
+                            child: SfRangeSlider(
+                              startThumbIcon: Container(
+                                color: Colors.white,
+                                margin: EdgeInsets.all(3),
+                              ),
+                              endThumbIcon: Container(
+                                color: Colors.white,
+                                margin: EdgeInsets.all(3),
+                              ),
+                              activeColor: Colors.red,
+                              min: 0.0,
+                              max: 20.0,
+                              interval: 20,
+                              onChanged: (SfRangeValues data) {
+                                setState(() {
+                                  currentRangeValues = data;
+                                });
+                              },
+                              values: SfRangeValues(
+                                currentRangeValues.start.round(),
+                                currentRangeValues.end.round(),
+                              ),
+                            ),
                           ),
                         ),
                       )
                     ],
                   ),
                 ),
+                Container(
+                  width: 250,
+                  constraints: BoxConstraints(maxWidth: 250),
+                  child: SfRangeSliderTheme(
+                    data: SfRangeSliderThemeData(
+                      activeTrackHeight: 5,
+                      thumbStrokeWidth: 3,
+                      thumbStrokeColor: Colors.red,
+                    ),
+                    child: SfRangeSlider(
+                      startThumbIcon: Container(
+                        color: Colors.white,
+                        margin: EdgeInsets.all(3),
+                      ),
+                      endThumbIcon: Container(
+                        color: Colors.white,
+                        margin: EdgeInsets.all(3),
+                      ),
+                      activeColor: Colors.red,
+                      min: 1,
+                      max: 100,
+                      interval: 1,
+                      onChanged: (data) {},
+                      values: SfRangeValues(
+                        _currentRangeValues.start.round(),
+                        _currentRangeValues.end.round(),
+                      ),
+                    ),
+                  ),
+                )
+                // start here
               ],
             ),
           ), //RestaurantPage(), <--- This is Filter Page and on Menu Click menu work
@@ -131,13 +196,21 @@ class _MyHomePageState extends State<MyHomePage> {
   // this function for returning list of candels
   List<Widget> giveGandleList(int itemCound) {
     List<Widget> candlesList = [];
+    List sampleData = [
+      100,
+      400,
+      450,
+      350,
+      600,
+    ];
 
     for (var i = 0; i < itemCound + 1; i++) {
-      if (i >= _currentRangeValues.start.round() / 5 &&
-          i <= _currentRangeValues.end.round() / 5) {
-        candlesList.add(distanceCandle(Colors.red[200], 50));
+      if (i >= currentRangeValues.start.round() / 4 &&
+          i <= currentRangeValues.end.round() / 5) {
+        candlesList
+            .add(distanceCandle(Colors.red[200], (sampleData[i] / 10) / 2));
       } else {
-        candlesList.add(distanceCandle(Colors.transparent, 40));
+        candlesList.add(distanceCandle(Colors.red, 40));
       }
     }
 
