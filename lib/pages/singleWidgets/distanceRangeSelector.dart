@@ -141,8 +141,10 @@ class StateDistanceRangeSelector extends State<DistanceRangeSelector> {
 
     for (var i = 0; i < itemCound; i++) {
       if (i >= currentRangeValues.start.round() / 1 &&
-          i <= currentRangeValues.end.round() / 1) {
+          i + 1 <= currentRangeValues.end.round() / 1) {
         candlesList.add(distanceCandle(Colors.red[200], sampleData[i] / 10));
+      } else if (i <= currentRangeValues.end.round() / 1) {
+        candlesList.add(distanceCandle(Colors.transparent, 40));
       } else {
         candlesList.add(distanceCandle(Colors.transparent, 40));
       }
@@ -154,7 +156,7 @@ class StateDistanceRangeSelector extends State<DistanceRangeSelector> {
   Container distanceCandle(Color candleColor, double heightData) {
     return Container(
       height: heightData,
-      width: 10,
+      width: 11,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(3),
         color: candleColor,
