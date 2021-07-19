@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app_design_demo/pages/singleWidgets/distanceRangeSelector.dart';
 
 class Filter extends StatefulWidget {
   Filter({Key key}) : super(key: key);
@@ -155,7 +156,7 @@ class _FilterState extends State<Filter> {
                   // Filter Tab
                   Container(
                     constraints: BoxConstraints(maxHeight: 530),
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -163,70 +164,75 @@ class _FilterState extends State<Filter> {
                       //For Small Phones
                       child: Column(
                         children: [
-                          GestureDetector(
-                            onVerticalDragEnd: (gestureData) {
-                              Velocity dragVelocity = gestureData.velocity;
+                          Container(
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: GestureDetector(
+                              onVerticalDragEnd: (gestureData) {
+                                Velocity dragVelocity = gestureData.velocity;
 
-                              if (dragVelocity.pixelsPerSecond.dy.abs() > 0) {
-                                setState(() {
-                                  if (slidUp) {
-                                    setState(() {
-                                      slidUp = false;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      slidUp = true;
-                                    });
-                                  }
-                                });
-                              } else {
-                                print('no Drag down, wait 1sec to do again');
-                              }
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                bottom: size.height < 600 ? 20 : 30,
-                              ),
-                              width: size.width,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 5,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(2.5),
-                                      color: Colors.grey[500],
+                                if (dragVelocity.pixelsPerSecond.dy.abs() > 0) {
+                                  setState(() {
+                                    if (slidUp) {
+                                      setState(() {
+                                        slidUp = false;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        slidUp = true;
+                                      });
+                                    }
+                                  });
+                                } else {
+                                  print('no Drag down, wait 1sec to do again');
+                                }
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                  bottom: size.height < 600 ? 20 : 30,
+                                ),
+                                width: size.width,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      height: 5,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(2.5),
+                                        color: Colors.grey[500],
+                                      ),
                                     ),
-                                  ),
-                                  // Filter text Box
-                                  Container(
-                                    padding: EdgeInsets.only(top: 10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Filter',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w900,
-                                            color: Colors.black,
-                                            fontSize: 32,
+                                    // Filter text Box
+                                    Container(
+                                      padding: EdgeInsets.only(top: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Filter',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w900,
+                                              color: Colors.black,
+                                              fontSize: 32,
+                                            ),
                                           ),
-                                        ),
-                                        Icon(
-                                          Icons.arrow_drop_down,
-                                          color: Colors.red,
-                                          size: 40,
-                                        ),
-                                      ],
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.red,
+                                            size: 40,
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                           Container(
+                            padding: EdgeInsets.only(left: 20, right: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -250,19 +256,25 @@ class _FilterState extends State<Filter> {
                             ),
                           ),
                           SizedBox(height: 20),
-                          // Distance Filter
+
+                          //**********/ Distance Filter *************
+
                           Container(
-                            height: size.height < 600 ? 70 : 80,
+                            // padding: EdgeInsets.only(left: 20, right: 20),
+                            height: size.height < 600 ? 80 : 80,
+                            width: size.width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color: Colors.grey[300],
+                              // color: Colors.grey[300],
                             ),
-                            child: Center(
-                              child: Text('Distance range box'),
-                            ),
+                            child: DistanceRangeSelector(),
                           ),
+
+                          //**********/ Distance Filter Ends *********
+
                           SizedBox(height: 10),
                           Container(
+                            padding: EdgeInsets.only(left: 20, right: 20),
                             child: Row(
                               children: [
                                 filterDropDownButton(
@@ -290,6 +302,7 @@ class _FilterState extends State<Filter> {
                           ),
                           SizedBox(height: 10),
                           Container(
+                            padding: EdgeInsets.only(left: 20, right: 20),
                             child: Row(
                               children: [
                                 filterDropDownButton(
@@ -375,7 +388,7 @@ class _FilterState extends State<Filter> {
       child: InkWell(
         onTap: () {},
         child: Container(
-          margin: EdgeInsets.only(top: 15, bottom: 20),
+          margin: EdgeInsets.only(top: 15, bottom: 20, left: 20, right: 20),
           height: 50,
           width: 1000,
           decoration: BoxDecoration(
