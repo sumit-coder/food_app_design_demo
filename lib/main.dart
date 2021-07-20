@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app_design_demo/pages/filterPage.dart';
 import 'package:food_app_design_demo/pages/restaurant.dart';
+import 'package:food_app_design_demo/pages/sideBarPage.dart';
 import 'package:food_app_design_demo/pages/singleWidgets/distanceRangeSelector.dart';
 
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -73,6 +74,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(height: 20),
                 // DistanceRangeSelector(),
                 // start here
+                bigButton(
+                  'Side Bar Page',
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SideBar()),
+                    );
+                  },
+                ),
               ],
             ),
           ), //RestaurantPage(), <--- This is Filter Page and on Menu Click menu work
